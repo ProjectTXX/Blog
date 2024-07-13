@@ -1,4 +1,4 @@
-package traveler.config;
+package com.group.blogapi.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,8 +9,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter;
 
-@Configuration
+//@Configuration
 public class SercurityConfig extends WebSecurityConfigurerAdapter {
     //    配置密码的加密存储
     @Bean
