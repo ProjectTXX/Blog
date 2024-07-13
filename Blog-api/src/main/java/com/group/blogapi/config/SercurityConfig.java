@@ -1,4 +1,4 @@
-package com.group.blogapi.config;
+package traveler.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SercurityConfig extends WebSecurityConfigurerAdapter {
@@ -33,14 +34,16 @@ public class SercurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 // 对于登录接口 允许匿名访问
-                .antMatchers("/user/JwtAuthenticationTokenFilter").anonymous()
-//                .anyRequest().permitAll();
-//                // 除上面外的所有请求全部需要鉴权认证
+                .antMatchers("/user/login").anonymous()
+                .antMatchers("/testCors").hasAuthority("system:dept:list211")
+                // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest().authenticated();
 
         //将jwtAuthenticationTokenFilter过滤器放到登录认证之前
 
+
         //配置异常处理器
+
 
         //允许跨域
         http.cors();
