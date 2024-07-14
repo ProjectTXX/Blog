@@ -52,7 +52,7 @@
 
 ## 后台
 
-![image-20240713173441726](G:\A.项目组项目\项目组博客\md图片\README\image-20240713173441726.png)
+![Blog/md图片/README/image-20240713173441726.png at main · ProjectTXX/Blog (github.com)](https://github.com/ProjectTXX/Blog/raw/main/md图片/README/image-20240713173441726.png)
 
 非常经典的后台管理样式
 
