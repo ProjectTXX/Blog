@@ -1,6 +1,7 @@
-package com.group.blogapi.domain;
+package com.group.blogapi.domain.vo;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.group.blogapi.domain.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

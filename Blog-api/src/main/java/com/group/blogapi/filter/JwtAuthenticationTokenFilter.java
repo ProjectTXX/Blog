@@ -2,7 +2,7 @@ package com.group.blogapi.filter;
 
 import com.alibaba.fastjson.JSON;
 
-import com.group.blogapi.domain.LoginUser;
+import com.group.blogapi.domain.vo.LoginUser;
 import com.group.blogapi.util.JwtUtil;
 import io.jsonwebtoken.Claims;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
