@@ -1,32 +1,42 @@
 <template>
-  <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
+  <div class="container" :class="{ 'right-panel-active': isSignup }">
+    <SigninForm />
+    <SignupForm />
+    <div class="container_overlay">
+      <div class="overlay">
+        <div class="overlay_panel overlay--left">
+          <button class="btn" @click="togglePanel">已有账号，直接登录</button>
+        </div>
+        <div class="overlay_panel overlay--right">
+          <button class="btn" @click="togglePanel">没有账号，点击注册</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
+<script>
+import SigninForm from './components/SigninForm.vue';
+import SignupForm from './components/SignupForm.vue';
+
+export default {
+  components: {
+    SigninForm,
+    SignupForm,
+  },
+  data() {
+    return {
+      isSignup: false
+    };
+  },
+  methods: {
+    togglePanel() {
+      this.isSignup = !this.isSignup;
+    }
+  }
+};
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
+@import './assets/styles.css';
 </style>
