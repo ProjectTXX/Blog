@@ -36,7 +36,7 @@
         <button class="search">
           <i class="iconfont icon-sousuo"></i>
         </button>
-        <button class="login" @click="register">
+        <button class="login" @click="login">
           <i class="iconfont icon-zhucedenglu" ></i>
         </button>
       </div>
@@ -50,10 +50,10 @@ export default {
   data() {
     return {};
   },
-  //点击按钮跳转到注册界面
+  //点击按钮跳转到登录注册界面
   methods: {
-    register() {
-      this.$router.push('register');
+    login() {
+      this.$router.push('login');
     },
   },
 };
