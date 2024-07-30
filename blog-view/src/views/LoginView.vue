@@ -22,7 +22,7 @@
               </div>
               <!-- 包含输入字段和提交按钮的容器 -->
               <div class="actual-form">
-                <!-- 包含邮箱输入字段的容器 -->
+                <!-- 包含用户名输入字段的容器 -->
                 <div class="input-wrap">
                   <input
                     id="name"
@@ -32,7 +32,7 @@
                     required
                     class="input-field"
                     placeholder="Name"
-
+                    v-model="username"
                   />       
                 </div>
                 <!-- 包含密码输入字段的容器 -->
@@ -44,8 +44,20 @@
                     required
                     class="input-field"
                     placeholder="Password"
-
+                    v-model="password"
                   /> 
+                </div>
+                <!-- 包含邮箱输入字段的容器 -->
+                 <div class="input-wrap">
+                  <input
+                    id="sign-email"
+                    type="email"
+                    autocomplete="off"
+                    required
+                    class="input-field"
+                    placeholder="Email"
+                    v-model="email"
+                  />
                 </div>
                 <!-- 包含人机验证码输入字段容器 -->
                 <div class="input-wrap">
@@ -54,11 +66,12 @@
                     type="text" 
                     class="input-field"
                     placeholder="Code" 
-
-                    />
+                    v-model="code"
+                  /> 
                 </div>
+                
                 <!-- 登录表单的提交按钮 -->
-                <input type="submit" value="SIGN IN" class="sign-btn" />
+                <input type="submit" value="SIGN IN" class="sign-btn" @click.prevent="submitLogin"/>
                 <!-- 忘记密码的链接 -->
                 <p class="text">
                   忘记密码?
@@ -89,10 +102,10 @@
                     required
                     class="input-field"
                     placeholder="Name"
-
+                    v-model="username"
                   />
                 </div>
-                <!-- 包含电子邮件输入字段的容器 -->
+                <!-- 包含邮箱输入字段的容器 -->
                 <div class="input-wrap">
                   <input
                     id="sign-email"
@@ -101,7 +114,7 @@
                     required
                     class="input-field"
                     placeholder="Email"
-
+                    v-model="email"
                   />
                 </div>
                 <!-- 包含密码输入字段的容器 -->
@@ -113,7 +126,7 @@
                     required
                     class="input-field"
                     placeholder="Password"
-
+                    v-model="password"
                   />
                 </div>
                 <!-- 包含邮箱验证码输入字段容器 -->
@@ -122,12 +135,12 @@
                     id="sign-code" 
                     type="text" 
                     class="input-field"
-                    placeholder="Code"
-
+                    placeholder="Verificode"
+                    v-model="code"
                     />
                 </div>
                 <!-- 注册表单的提交按钮 -->
-                <input type="submit" value="SIGN IN" class="sign-btn" />
+                <input type="submit" value="SIGN IN" class="sign-btn" @click.prevent="submitRegister"/>
                 <!-- 同意服务条款和隐私协议的复选框 -->
                 <p class="text">
                   <input type="checkbox" name="" id="" />注册前我已阅读并同意
@@ -140,27 +153,30 @@
           <div class="carousel">
             <!-- 包含轮播图图片的容器 -->
             <div class="images-wrapper">
-              <img
-                src="https://img-baofun.zhhainiao.com/pcwallpaper_ugc/live/68ff62863bb9fd90d6fd874802e08568.mp4.jpg"
+                <img
+                src="https://img.zcool.cn/community/0155fe5b568b18a80121ade08916ac.jpg?imageMogr2/auto-orient/thumbnail/1280x%3e/sharpen/0.5/quality/100/format/webp"
                 class="image img-1 show"
                 alt=""
+                :class="{'show':currentIdx === 1}"
               />
-              <img
-                src="https://wallpaper-static.cheetahfun.com/wallpaper/sites/scifi/pic5.jpg"
+                <img
+                src="https://img.zcool.cn/community/01a22c5b568b17a80121ade0330f36.jpg?imageMogr2/auto-orient/thumbnail/1280x%3e/sharpen/0.5/quality/100/format/webp"
                 alt=""
                 class="image img-2"
-              />
-              <img
-                src="https://img-baofun.zhhainiao.com/pcwallpaper_ugc/live/8bc682fba0a8747155409b3bbc2676ac.mp4.jpg"
+                :class="{'show':currentIdx === 2}"
+              />       
+                <img
+                src="https://img.zcool.cn/community/01e2965b568b17a80121ade09d6893.jpg?imageMogr2/auto-orient/thumbnail/1280x%3e/sharpen/0.5/quality/100/format/webp"
                 alt=""
                 class="image img-3"
+                :class="{'show':currentIdx === 3}"
               />
             </div>
             <!-- 包含轮播图文本和轮播图指示器的容器 -->
             <div class="text-slider">
               <!-- 包含轮播图文本的容器 -->
               <div class="text-wrap">
-                <div class="text-group">
+                <div class="text-group" :style="textTransformStyle">
                   <h2>开始你的学习旅程</h2>
                   <h2>准备创造奇迹吧</h2>
                   <h2>学习是一切创建力的开始</h2>
@@ -168,9 +184,9 @@
               </div>
               <!-- 包含轮播图指示器的容器 -->
               <div class="bullets">
-                <span class="active" data-value="1"></span>
-                <span data-value="2"></span>
-                <span data-value="3"></span>
+                <span data-value="1" :class="{'active':currentIdx === 1}" @click="moveSlider(1)"></span>
+                <span data-value="2" :class="{'active':currentIdx === 2}" @click="moveSlider(2)"></span>
+                <span data-value="3" :class="{'active':currentIdx === 3}" @click="moveSlider(3)"></span>
               </div>
             </div>
           </div>
@@ -179,56 +195,85 @@
     </main>
   </body>
 </template>
-<script>
+<script>    
 //导入axios
 import axios from 'axios';
 export default {
   name: "LoginView",
   data:function (){
     return{
-      name:'',
-      pwd:'',
-      codeImg:null,
-      code:'',
-      user_list:[
-      { 
-        id:'1',
-        username:'admin',
-        password:'123'
-      },
-      ],
       //页面:
       isWrap: false,
       isSignup: false,
+      currentIdx: 1,
       // axios
       username: "",
       password: "",
+      email:"",
+      code:"",
+      emailCode:"",
     }
   },
- 
+  computed:{
+    textTransformStyle(){
+      return {
+        transform: `translateY(${-(this.currentIdx - 1)* 2.2}rem)`,
+      };
+    }
+  },
   methods:{
     toggle() {
       this.isSignup = !this.isSignup;
     },
-    // 登录表单提交事件处理函数
-    login() {
-      // 获取用户名和密码
-      const username = this.username;
-      const password = this.password;
-      // 发送登录请求
-      axios.post("http://18a0afbd.r21.cpolar.top/api/v1/user/login", {
-        username,
-        password,
+    moveSlider(idx) {
+      this.currentIdx = idx; //更新当前索引
+    },
+    //点击登录
+    submitLogin(){
+      console.log('点击了登录,',this.loginForm)
+      axios
+      .post('http://18a0afbd.r21.cpolar.top/api/v1/user/login'),{
+        username: this.username,
+        password: this.password,
+        email: this.email,
+        code: this.code
+      }
+      .then(response =>{
+         console.log(response) 
+        })
+      .then(data => {
+        if (data.code === 200) {
+          // 登录成功，跳转到主页
+          this.$router.push('/');
+        } else {
+          // 登录失败，显示错误信息
+          alert(data.message);
+        }
+        this.username = data.username;
+        this.password = data.password;
+        this.email = data.email;
+        this.code = data.code
       })
-      .then((response) => {
-        // 处理登录成功
-        console.log(response.data);
-      })
-      .catch((error) => {
-        // 处理登录失败
-        console.error(error);
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
       });
     },
+    //点击注册
+    submitRegister(){
+      console.log('点击了注册,',this.registerForm)
+      axios
+      .post('http://18a0afbd.r21.cpolar.top/api/v1/user/register'),{
+        username: this.username,
+        password: this.password,
+        email: this.email,
+        code: this.code
+      }
+      .then(response =>{ console.log(response) })
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+      });
+    }
+   
   },
 }
 
