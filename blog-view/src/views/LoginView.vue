@@ -47,18 +47,6 @@
                     v-model="password"
                   /> 
                 </div>
-                <!-- 包含邮箱输入字段的容器 -->
-                 <div class="input-wrap">
-                  <input
-                    id="sign-email"
-                    type="email"
-                    autocomplete="off"
-                    required
-                    class="input-field"
-                    placeholder="Email"
-                    v-model="email"
-                  />
-                </div>
                 <!-- 包含人机验证码输入字段容器 -->
                 <div class="input-wrap">
                   <input 
@@ -66,12 +54,15 @@
                     type="text" 
                     class="input-field"
                     placeholder="Code" 
-                    v-model="code"
-                  /> 
+                    v-model="inputVal"
+                  />
+                  <!-- 图形验证码 -->
+                    <ImgCode ref="ref_ImgCode" @change="changeCode" />
+                   
+
                 </div>
-                
                 <!-- 登录表单的提交按钮 -->
-                <input type="submit" value="SIGN IN" class="sign-btn" @click.prevent="submitLogin"/>
+                <input type="submit" value="SIGN IN" class="sign-btn" @click.prevent="validateCode"/>
                 <!-- 忘记密码的链接 -->
                 <p class="text">
                   忘记密码?
@@ -97,7 +88,7 @@
                   <input
                     id="sign-name"
                     type="text"
-                    minlength="4"
+                    minlength="3"
                     autocomplete="off"
                     required
                     class="input-field"
@@ -138,6 +129,10 @@
                     placeholder="Verificode"
                     v-model="code"
                     />
+                    <button class="code-btn" @click.prevent="sendCode" :disabled="isSending || countdown > 0">
+                      {{ isSending ? '发送中...' : countdown > 0 ? `${countdown}秒后重试` : '发送验证码' }}
+                    </button>
+                    
                 </div>
                 <!-- 注册表单的提交按钮 -->
                 <input type="submit" value="SIGN IN" class="sign-btn" @click.prevent="submitRegister"/>
@@ -196,25 +191,34 @@
   </body>
 </template>
 <script>    
+import ImgCode from './ImgCode.vue';
 //导入axios
 import axios from 'axios';
 export default {
   name: "LoginView",
+  components: {
+    ImgCode,
+  },
   data:function (){
     return{
       //页面:
       isWrap: false,
       isSignup: false,
       currentIdx: 1,
+      isSending: false,
+      countdown: 0,
+      inputVal: "",
+      checkCode: "",
+      result: "",
       // axios
       username: "",
       password: "",
       email:"",
       code:"",
-      emailCode:"",
     }
   },
   computed:{
+    
     textTransformStyle(){
       return {
         transform: `translateY(${-(this.currentIdx - 1)* 2.2}rem)`,
@@ -222,22 +226,57 @@ export default {
     }
   },
   methods:{
+    sendCode(){
+      axios
+        .get("url", {
+          params: {
+            email: this.email
+          }
+        })
+        .then(() => {
+          this.$message({
+            message: "已发送验证码",
+            type: "success"
+          });
+        })
+        .catch(() => {
+          this.$message({
+            message: "请求超时，请检查网络连接",
+            type: "error"
+          });
+        });
+    },
+    changeCode(value) {
+      this.checkCode = value;
+    },
+    validateCode() {
+      if (this.inputVal.toUpperCase() === this.checkCode) {
+        console.log("验证码正确")
+        this.result = "验证成功";
+        //执行登录操作
+        this.submitLogin();
+      } else {
+        console.log("验证码错误")
+        this.result = "验证失败,请重新输入";
+        this.inputVal = "";
+        this.$refs["ref_ImgCode"].draw();
+      }
+    },
     toggle() {
       this.isSignup = !this.isSignup;
     },
     moveSlider(idx) {
       this.currentIdx = idx; //更新当前索引
     },
-    //点击登录
+    //登录
     submitLogin(){
       console.log('点击了登录,',this.loginForm)
       axios
-      .post('http://18a0afbd.r21.cpolar.top/api/v1/user/login'),{
+      .post('http://72eb6267.r21.cpolar.top/api/v1/user/login',{
         username: this.username,
         password: this.password,
-        email: this.email,
-        code: this.code
-      }
+        email:this.email
+      })
       .then(response =>{
          console.log(response) 
         })
@@ -245,14 +284,10 @@ export default {
         if (data.code === 200) {
           // 登录成功，跳转到主页
           this.$router.push('/');
-        } else {
+        } //else {
           // 登录失败，显示错误信息
-          alert(data.message);
-        }
-        this.username = data.username;
-        this.password = data.password;
-        this.email = data.email;
-        this.code = data.code
+         // alert(data.message);
+        //}
       })
       .catch(function (error) { // 请求失败处理
         console.log(error);
@@ -262,13 +297,28 @@ export default {
     submitRegister(){
       console.log('点击了注册,',this.registerForm)
       axios
-      .post('http://18a0afbd.r21.cpolar.top/api/v1/user/register'),{
+      .post('http://72eb6267.r21.cpolar.top/api/v1/user/register',{
         username: this.username,
         password: this.password,
         email: this.email,
-        code: this.code
-      }
-      .then(response =>{ console.log(response) })
+        code:this.code
+      })
+      .then(response =>{ 
+        console.log(response) 
+        if(response.data.code === ' '){
+          this.$message({
+            message: "验证码错误",
+            type: "error"
+          });
+          return
+        }
+        if(response.data.code === 200){
+          this.$message({
+            message: "注册成功",
+            type: "success"
+          });
+        }
+      })
       .catch(function (error) { // 请求失败处理
         console.log(error);
       });
@@ -442,6 +492,40 @@ form.sign-up-form {
 }
 
 
+.code-btn {
+  display: inline-block;
+  width: 35%;
+  height: 30px;
+  background: #9cf1eb00;
+  color: #fff;
+  cursor: pointer;
+  border: 2px solid #fff; 
+  border-radius: 0.8rem;
+  transition: 0.3s;
+  right: 0%;
+  position: absolute;
+}
+.code-btn:hover {
+  color: #229ae5;
+  border-color: #229ae5;
+}
+
+.sign-btn {
+  display: inline-block;
+  width: 100%;
+  height: 43px;
+  background: #151111;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.8rem;
+  margin-bottom: 2rem;
+  transition: 0.3s;
+}
+
+.sign-btn:hover {
+  background-color: #8371f6;
+}
 
 .sign-btn {
   display: inline-block;

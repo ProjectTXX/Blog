@@ -2,8 +2,14 @@ const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
   transpileDependencies: true,
   devServer: {
+    proxy: {
+      '/api1':{
+      target: 'http://72eb6267.r21.cpolar.top',
+      changeOrigin: true,   // 允许跨域
+      ['/api1']:'',
+      }
+    },
     port: 80,  //指定端口号
-    https: false, //是否启用https
-    disableHostCheck: true, //解决Invalid Host header
+    //disableHostCheck: false, //解决Invalid Host header
   }
 })
