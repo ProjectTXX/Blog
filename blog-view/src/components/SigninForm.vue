@@ -8,16 +8,21 @@
         <input v-model="verificode" type="text" placeholder="请输入验证码" >
         <button type="button" :disabled="!isEmailValid" @click="sendVerificode" :class="{ enabled: isEmailValid }">{{ buttonText }}</button>
       </div>
+      <slider-verification v-if="!forgotPassword" @verification-success="handleVerificationSuccess"></slider-verification>
       <a v-if="!forgotPassword" href="#" class="link" @click.prevent="toggleForgotPassword">忘记密码？</a>
-      <button type="submit" class="btn">{{ forgotPassword ? '重置密码并登录' : '登录' }}</button>
+      <button type="submit" class="btn">{{ forgotPassword ? '重置密码' : '登录' }}</button>
     </form>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import SliderVerification from './SliderVerification.vue';
 
 export default {
+  components: {
+    SliderVerification
+  },
   data() {
     return {
       username: '',
@@ -27,7 +32,8 @@ export default {
       isEmailValid: false,
       buttonText: '获取验证码',
       timer: null,
-      countdown: 60
+      countdown: 60,
+      isVerified: false
     };
   },
   methods: {
@@ -37,16 +43,20 @@ export default {
     },
     sendVerificode() {
       if (this.timer) return;
-
-      axios.post('https://18a0afbd.r21.cpolar.top/api', { username: this.username })
-        .then(response => {
-          //处理成功的响应
-          console.log(response.data);
-        })
-        .catch(error => {
-          //处理失败的响应
-          console.error('Error sending verificode:', error);
-        });
+      // username 相当 email
+      axios.get("http://7ad7a648.r19.cpolar.top/api/v1/user/code",{
+        params: {
+          username:this.username
+        }
+      })
+      .then(response => {
+        // 处理成功的响应
+        console.log(response.data);
+      })
+      .catch(error => {
+        // 处理失败的响应
+        console.error('发送验证码时出错：', error);
+      });
 
       this.isEmailValid = false;
       this.buttonText = `${this.countdown}s后可再次发送`;
@@ -67,28 +77,33 @@ export default {
       this.forgotPassword = !this.forgotPassword;
     },
     handleSubmit() {
+      if (!this.isVerified && !this.forgotPassword) {
+        alert('请先通过滑块验证');
+        return;
+      }
+
       if (this.forgotPassword) {
         if (this.isEmailValid && this.password && this.verificode) {
-          axios.post('/api/reset-password', {
+          axios.post('/api/v1/user/resetpwd', {
             username: this.username,
             password: this.password,
             verificode: this.verificode
           })
           .then(response => {
             // 密码重置成功的响应
-            alert('重设密码成功并登录！');
+            alert('重设密码成功！');
             console.log(response.data);
           })
           .catch(error => {
             // 密码重置失败的响应
-            console.error('Error during password reset:', error);
+            console.error('密码重置时出错：', error);
           });
         } else {
           alert('请完整填写表单');
         }
       } else {
         if (this.username && this.password) {
-          axios.post('https://18a0afbd.r21.cpolar.top/api/v1/user/login', {
+          axios.post('http://7ad7a648.r19.cpolar.top/api/v1/user/login', {
             username: this.username,
             password: this.password
           })
@@ -99,13 +114,20 @@ export default {
           })
           .catch(error => {
             // 处理失败的响应
-            console.error('Error during login:', error);
+            console.error('登录时出错：', error);
           });
         } else {
           alert('请完整填写表单');
         }
       }
+    },
+    handleVerificationSuccess() {
+      this.isVerified = true;
     }
   }
 };
 </script>
+
+<style scoped>
+@import '../assets/styles.css';
+</style>

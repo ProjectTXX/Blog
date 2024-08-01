@@ -38,15 +38,19 @@ export default {
     sendVerificode() {
       if (this.timer) return;
 
-      axios.post('https://18a0afbd.r21.cpolar.top/api', { email: this.email })
-        .then(response => {
-          // 处理成功的响应
-          console.log(response.data);
-        })
-        .catch(error => {
-          // 处理失败的响应
-          console.error('Error sending verificode:', error);
-        });
+      axios.get("http://7ad7a648.r19.cpolar.top/api/v1/user/code",{
+        params: {
+          email:this.email
+        }
+      })
+      .then(response => {
+        // 处理成功的响应
+        console.log(response.data);
+      })
+      .catch(error => {
+        // 处理失败的响应
+        console.error('发送验证码时出错：', error);
+      });
 
       this.isEmailValid = false;
       this.buttonText = `${this.countdown}s后可再次发送`;
@@ -65,7 +69,7 @@ export default {
     },
     handleSignup() {
       if (this.username && this.isEmailValid && this.password && this.verificode) {
-        axios.post('https://18a0afbd.r21.cpolar.top/api/v1/user/register', {
+        axios.post('http://7ad7a648.r19.cpolar.top/api/v1/user/register', {
           username: this.username,
           email: this.email,
           password: this.password,
@@ -76,7 +80,7 @@ export default {
           console.log(response.data);
         })
         .catch(error => {
-          console.error('Error during registration:', error);
+          console.error('注册时错误：', error);
         });
       } else {
         alert('请完整填写表单');
@@ -85,3 +89,7 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+@import '../assets/styles.css';
+</style>
