@@ -7,7 +7,7 @@ export default {
     return {
       codes: [],
       ctx: "",
-      colors: ["red", "yellow", "blue", "green", "pink", "black"],
+      colors: ["red", "yellow", "blue", "green", "orange", "black"],
       code_Len: 4
     };
   },

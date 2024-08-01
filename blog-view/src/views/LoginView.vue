@@ -129,9 +129,10 @@
                     placeholder="Verificode"
                     v-model="code"
                     />
-                    <button class="code-btn" @click.prevent="sendCode" :disabled="isSending || countdown > 0">
-                      {{ isSending ? '发送中...' : countdown > 0 ? `${countdown}秒后重试` : '发送验证码' }}
-                    </button>
+                    <!-- <div v-if="messageCodeVis" class="second-text">{{countdown}}秒后重新获取</div>
+                    <button v-else class="code-btn" @click.prevent="sendCode" >获取验证码</button> -->
+                    <button class="code-btn" :disabled="disabled" @click.prevent="sendCode" >{{ buttonText }}</button>
+                   
                     
                 </div>
                 <!-- 注册表单的提交按钮 -->
@@ -205,8 +206,12 @@ export default {
       isWrap: false,
       isSignup: false,
       currentIdx: 1,
-      isSending: false,
-      countdown: 0,
+      //邮箱验证码
+      timer: null,
+      countdown: 60,
+      buttonText: "获取验证码",
+      disabled: false, // 控制按钮是否禁用
+      //图片验证码
       inputVal: "",
       checkCode: "",
       result: "",
@@ -217,38 +222,100 @@ export default {
       code:"",
     }
   },
+  mounted(){
+    this.getCountdown() //页面加载时回复倒计时状态
+  },
   computed:{
-    
+    //轮播图文本切换
     textTransformStyle(){
       return {
         transform: `translateY(${-(this.currentIdx - 1)* 2.2}rem)`,
       };
     }
   },
-  methods:{
+  methods:{ 
+    //邮箱验证码
+    getCountdown(){
+      const storedCountdown = localStorage.getItem('countdown');
+      if (storedCountdown) {
+        this.countdown = parseInt(storedCountdown, 10);
+        this.buttonText = `${this.countdown}s后可再次发送`;
+        // 如果倒计时应该在进行中，重新启动倒计时
+        if (this.countdown > 0 && !this.timer) {
+          this.startCountdown();
+        }
+        else if (this.countdown <= 0) {
+          // 如果倒计时已经结束，重置状态
+          this.resetCountdown();
+        }
+      }
+    },
     sendCode(){
+      if (this.timer || this.disabled) return;
       axios
-        .get("url", {
+        .get("http://72eb6267.r21.cpolar.top/api/v1/user/code", {
           params: {
             email: this.email
           }
         })
         .then(() => {
+          //成功响应
           this.$message({
             message: "已发送验证码",
             type: "success"
           });
         })
         .catch(() => {
+          //失败响应
           this.$message({
             message: "请求超时，请检查网络连接",
             type: "error"
           });
         });
+        this.disabled = true; // 开始倒计时时禁用按钮
+        this.startCountdown()
+      //   this.buttonText = `${this.countdown}s后可再次发送`;
+      //   this.timer = setInterval(() => {
+      //   this.countdown--;
+      //   this.buttonText = `${this.countdown}s后可再次发送`;
+
+      //   if (this.countdown < 0) {
+      //     clearInterval(this.timer);
+      //     this.timer = null;
+      //     this.countdown = 60;
+      //     this.buttonText = '获取验证码';
+          
+      //   }
+      // }, 1000);
+    },
+    startCountdown(){
+      // 如果定时器已经在运行，则不执行任何操作
+      if (this.timer) return;
+
+      this.timer = setInterval(() => {
+        if (this.countdown > 0) {
+          this.countdown--;
+          this.buttonText = `${this.countdown}s后可再次发送`;
+          localStorage.setItem('countdown', this.countdown.toString());
+        } else {
+          this.resetCountdown();
+        }
+      }, 1000);
+    },
+    resetCountdown(){
+      if (this.timer) {
+        clearInterval(this.timer);
+        this.timer = null;
+      }
+      this.countdown = 60;
+      this.buttonText = '获取验证码';
+      localStorage.removeItem('countdown');
+      this.disabled = false; // 重置倒计时时启用按钮
     },
     changeCode(value) {
       this.checkCode = value;
     },
+    //图片验证码
     validateCode() {
       if (this.inputVal.toUpperCase() === this.checkCode) {
         console.log("验证码正确")
@@ -262,13 +329,14 @@ export default {
         this.$refs["ref_ImgCode"].draw();
       }
     },
+    //切换登录注册
     toggle() {
       this.isSignup = !this.isSignup;
     },
     moveSlider(idx) {
       this.currentIdx = idx; //更新当前索引
     },
-    //登录
+    //点击登录
     submitLogin(){
       console.log('点击了登录,',this.loginForm)
       axios
@@ -494,7 +562,7 @@ form.sign-up-form {
 
 .code-btn {
   display: inline-block;
-  width: 35%;
+  width: auto;
   height: 30px;
   background: #9cf1eb00;
   color: #fff;
