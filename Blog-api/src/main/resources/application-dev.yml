@@ -1,0 +1,5 @@
+project:
+  db:
+    host: localhost
+    name: blog_hut
+    pw: abc123
