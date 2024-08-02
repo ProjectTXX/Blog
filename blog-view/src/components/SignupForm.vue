@@ -15,7 +15,8 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { register } from '@/api/register';
+import { vercode } from '@/api/vercode';
 
 export default {
   data() {
@@ -38,7 +39,7 @@ export default {
     sendVerificode() {
       if (this.timer) return;
 
-      axios.get("http://7ad7a648.r19.cpolar.top/api/v1/user/code",{
+      vercode({
         params: {
           email:this.email
         }
@@ -69,7 +70,8 @@ export default {
     },
     handleSignup() {
       if (this.username && this.isEmailValid && this.password && this.verificode) {
-        axios.post('http://7ad7a648.r19.cpolar.top/api/v1/user/register', {
+
+        register({
           username: this.username,
           email: this.email,
           password: this.password,

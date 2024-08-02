@@ -17,6 +17,8 @@
 
 <script>
 import axios from 'axios';
+import { vercode } from '@/api/vercode';
+import { login } from "@/api/login";
 import SliderVerification from './SliderVerification.vue';
 
 export default {
@@ -43,8 +45,9 @@ export default {
     },
     sendVerificode() {
       if (this.timer) return;
+
       // username 相当 email
-      axios.get("http://7ad7a648.r19.cpolar.top/api/v1/user/code",{
+      vercode({
         params: {
           username:this.username
         }
@@ -103,7 +106,8 @@ export default {
         }
       } else {
         if (this.username && this.password) {
-          axios.post('http://7ad7a648.r19.cpolar.top/api/v1/user/login', {
+
+          login({
             username: this.username,
             password: this.password
           })
