@@ -1,0 +1,5 @@
+project:
+  db:
+    host: localhost
+    pw: Whrgg6....
+    name: nblog

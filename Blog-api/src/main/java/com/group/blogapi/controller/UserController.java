@@ -22,14 +22,16 @@ public class UserController {
 
     @PostMapping("/login")
     public Rsg login(@RequestBody User user){
-        UserDetails userDetails = this.userDetails.loadUserByUsername(user.getUsername());
-        String jwt = JwtUtil.createJWT(JSON.toJSONString(userDetails));
-
-        return Rsg.Ok(new UserVo(user.getUsername(),jwt));
+//        UserDetails userDetails = this.userDetails.loadUserByUsername(user.getUsername());
+//        String jwt = JwtUtil.createJWT(JSON.toJSONString(userDetails));
+        System.out.println(user);
+//        return Rsg.Ok(new UserVo(user.getUsername(),jwt));
+        return Rsg.Ok(user);
     }
 
     @PostMapping("/register")
-    public Rsg register(){
+    public Rsg register(@RequestBody User user){
+        System.out.println(user);
 
         return Rsg.Imperror();
     }
