@@ -7,6 +7,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class UserVo {
     private String username;
-    private String nickname;
     private String token;
 }
