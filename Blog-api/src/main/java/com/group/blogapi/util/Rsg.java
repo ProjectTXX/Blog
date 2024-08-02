@@ -23,7 +23,7 @@ public class Rsg {
     }
 
     public static  Rsg Ok(Object data){
-        return new Rsg(200,data);
+        return new Rsg("请求成功",200,data);
     }
 
     public static Rsg Sqlerror(){

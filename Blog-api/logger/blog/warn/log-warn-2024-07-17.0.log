@@ -1,0 +1,6 @@
+2024-07-17 22:20:03,663 WARN [main] o.m.s.m.ClassPathMapperScanner [Logger.java:44] No MyBatis mapper was found in '[com.group.blogapi]' package. Please check your configuration.
+2024-07-17 22:20:16,733 WARN [main] o.m.s.m.ClassPathMapperScanner [Logger.java:44] No MyBatis mapper was found in '[com.group.blogapi]' package. Please check your configuration.
+2024-07-17 22:22:33,152 WARN [main] o.m.s.m.ClassPathMapperScanner [Logger.java:44] No MyBatis mapper was found in '[com.group.blogapi]' package. Please check your configuration.
+2024-07-17 22:24:32,081 WARN [main] o.m.s.m.ClassPathMapperScanner [Logger.java:44] No MyBatis mapper was found in '[com.group.blogapi]' package. Please check your configuration.
+2024-07-17 22:28:05,466 WARN [main] o.m.s.m.ClassPathMapperScanner [Logger.java:44] No MyBatis mapper was found in '[com.group.blogapi]' package. Please check your configuration.
+2024-07-17 22:28:33,051 WARN [main] o.m.s.m.ClassPathMapperScanner [Logger.java:44] No MyBatis mapper was found in '[com.group.blogapi]' package. Please check your configuration.
