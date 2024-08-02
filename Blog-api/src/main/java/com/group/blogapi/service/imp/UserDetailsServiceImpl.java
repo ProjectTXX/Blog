@@ -35,7 +35,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         //根据用户查询权限信息 添加到LoginUser中
         List<String > author = new ArrayList<>();
-        author.add(user.getAuthentication());
+        author.add(user.getRole());
         //封装成UserDetails对象返回
         return new LoginUser(user,author);
     }
