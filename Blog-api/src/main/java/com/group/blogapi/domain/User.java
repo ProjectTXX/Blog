@@ -36,12 +36,13 @@ public class User implements Serializable {
     /**
      * 权限
      */
+    @TableField("role")
     private String authentication;
 
     /**
      * 头像路径
      */
-    private String headerUrl;
+    private String avatar;
 
     /**
      * 创建时间
@@ -56,12 +57,12 @@ public class User implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(authentication, user.authentication) && Objects.equals(headerUrl, user.headerUrl) && Objects.equals(createTime, user.createTime);
+        return Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(authentication, user.authentication) && Objects.equals(avatar, user.avatar) && Objects.equals(createTime, user.createTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, authentication, headerUrl, createTime);
+        return Objects.hash(id, username, password, authentication, avatar, createTime);
     }
 
     @Override
@@ -71,7 +72,7 @@ public class User implements Serializable {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", authentication='" + authentication + '\'' +
-                ", headerUrl='" + headerUrl + '\'' +
+                ", headerUrl='" + avatar + '\'' +
                 ", createTime=" + createTime +
                 '}';
     }
