@@ -24,8 +24,11 @@
     <div class="content">
       <div class="template-container">
         <div class="left-half scroll-animation">
-          <h2>文章</h2>
-          <p>内容</p>
+          <div class="essay">
+            //后序文章不止一个
+            <h2>文章</h2>
+            <p>内容</p>
+          </div>
         </div>
         <div class="right-half scroll-animation">
           <div class="section-a">
@@ -37,12 +40,7 @@
             <p>内容</p>
           </div>
           <div class="section-c scroll-animation">
-            <h3>评论</h3>
-            <p>内容</p>
-          </div>
-          <div class="section-d scroll-animation">
-            <h3>网站咨询</h3>
-            <p>内容</p>
+            <TagPage></TagPage>
           </div>
         </div>
       </div>
@@ -61,7 +59,12 @@
 </template>
 
 <script>
+import TagPage from "@/components/TagPage.vue";
+
 export default {
+  components: {
+    TagPage,
+  },
   data() {
     return {
       text: "这是一段测试文字",
@@ -155,7 +158,7 @@ export default {
   height: 2000px;
   margin-top: -70px;
   .img {
-    position: relative; /* 设置为相对定位，以便.overlay-text可以使用绝对定位 */
+    position: relative;
     z-index: 0;
   }
 }

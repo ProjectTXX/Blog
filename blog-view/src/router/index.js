@@ -8,7 +8,6 @@ import FilePage from '../views/FilePage.vue';
 import MemberPage from '../views/MemberPage.vue';
 import HomePage from '../views/HomePage.vue'
 
-
 Vue.use(VueRouter)
 
 const router = new VueRouter({
