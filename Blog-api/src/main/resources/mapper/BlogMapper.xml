@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.group.blogapi.mapper.BlogMapper">
+    <select id="getById" resultType="com.group.blogapi.domain.Blog">
+        select * from blog
+        where is_published = 1
+        and user_id = #{id}
+    </select>
+    <select id="getNumsOfViewers" resultType="java.lang.Integer">
+        select count(blog.views) from blog
+    </select>
+    <select id="getNumsOfRecentlyViewers" resultType="java.lang.Integer">
+        select count(blog.views) from blog where blog.update_time >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)
+    </select>
+</mapper>

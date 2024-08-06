@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.group.blogapi.mapper.ArticleMapper">
+    <select id="getById" resultType="com.group.blogapi.domain.Article">
+        select * from article
+        where article_id = #{id}
+    </select>
+<!--    <select id="getById" resultType="com.group.blogapi.domain.Article">-->
+<!--        select * from article-->
+<!--        where article_id = #{id}-->
+<!--    </select>-->
+    <select id="getNumsOfArticle" resultType="java.lang.Integer">
+
+        select count(article.article_id) from article
+    </select>
+    <select id="getNumsOfRecentlyAddedArticle" resultType="java.lang.Integer">
+        select count(article.article_id) from article where article_create_time >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)
+    </select>
+
+</mapper>

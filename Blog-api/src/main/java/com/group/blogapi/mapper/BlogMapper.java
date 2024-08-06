@@ -8,4 +8,9 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface BlogMapper extends BaseMapper<Blog> {
 
+    Blog getById(long id);
+
+    int getNumsOfViewers();
+
+    int getNumsOfRecentlyViewers();
 }

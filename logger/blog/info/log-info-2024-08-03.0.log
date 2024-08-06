@@ -1,0 +1,54 @@
+2024-08-03 16:42:16,102 INFO [main] c.g.b.BlogApiApplication [StartupInfoLogger.java:55] Starting BlogApiApplication using Java 1.8.0_422 on karzy with PID 26848 (D:\develop\code\Blog5\Blog-api\target\classes started by refuse in D:\develop\code\Blog5)
+2024-08-03 16:42:16,107 INFO [main] c.g.b.BlogApiApplication [SpringApplication.java:651] The following 1 profile is active: "dev"
+2024-08-03 16:42:16,934 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java:262] Multiple Spring Data modules found, entering strict repository configuration mode
+2024-08-03 16:42:16,935 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java:132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-08-03 16:42:16,959 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java:201] Finished Spring Data repository scanning in 11 ms. Found 0 Redis repository interfaces.
+2024-08-03 16:42:17,348 INFO [main] o.s.b.w.e.t.TomcatWebServer [TomcatWebServer.java:108] Tomcat initialized with port(s): 8080 (http)
+2024-08-03 16:42:17,349 INFO [main] o.a.c.c.AprLifecycleListener [DirectJDKLog.java:173] Loaded Apache Tomcat Native library [2.0.7] using APR version [1.7.4].
+2024-08-03 16:42:17,349 INFO [main] o.a.c.c.AprLifecycleListener [DirectJDKLog.java:173] APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true], UDS [true].
+2024-08-03 16:42:17,349 INFO [main] o.a.c.c.AprLifecycleListener [DirectJDKLog.java:173] APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2024-08-03 16:42:17,362 INFO [main] o.a.c.c.AprLifecycleListener [DirectJDKLog.java:173] OpenSSL successfully initialized [OpenSSL 3.0.13 30 Jan 2024]
+2024-08-03 16:42:17,367 INFO [main] o.a.c.h.Http11NioProtocol [DirectJDKLog.java:173] Initializing ProtocolHandler ["http-nio-8080"]
+2024-08-03 16:42:17,368 INFO [main] o.a.c.c.StandardService [DirectJDKLog.java:173] Starting service [Tomcat]
+2024-08-03 16:42:17,368 INFO [main] o.a.c.c.StandardEngine [DirectJDKLog.java:173] Starting Servlet engine: [Apache Tomcat/9.0.68]
+2024-08-03 16:42:17,981 INFO [main] o.a.c.c.C.[.[.[/] [DirectJDKLog.java:173] Initializing Spring embedded WebApplicationContext
+2024-08-03 16:42:17,982 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java:290] Root WebApplicationContext: initialization completed in 1841 ms
+2024-08-03 16:42:18,902 INFO [main] c.g.b.c.RedisConfiguration [RedisConfiguration.java:16] 开始创建redis模板对象...
+2024-08-03 16:42:19,341 INFO [main] o.s.s.w.DefaultSecurityFilterChain [DefaultSecurityFilterChain.java:55] Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7f13811b, org.springframework.security.web.context.SecurityContextPersistenceFilter@5ff00507, org.springframework.security.web.header.HeaderWriterFilter@26865482, org.springframework.web.filter.CorsFilter@59fc6d05, org.springframework.security.web.authentication.logout.LogoutFilter@79980d8d, com.group.blogapi.filter.JwtAuthenticationTokenFilter@288cdaab, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@67fa5045, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@996a546, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@78307a56, org.springframework.security.web.session.SessionManagementFilter@270a620, org.springframework.security.web.access.ExceptionTranslationFilter@773014d3, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1980a3f]
+2024-08-03 16:42:19,371 INFO [main] o.a.c.h.Http11NioProtocol [DirectJDKLog.java:173] Starting ProtocolHandler ["http-nio-8080"]
+2024-08-03 16:42:19,389 INFO [main] o.s.b.w.e.t.TomcatWebServer [TomcatWebServer.java:220] Tomcat started on port(s): 8080 (http) with context path ''
+2024-08-03 16:42:19,395 INFO [main] c.g.b.BlogApiApplication [StartupInfoLogger.java:61] Started BlogApiApplication in 3.686 seconds (JVM running for 7.043)
+2024-08-03 16:42:57,241 INFO [http-nio-8080-exec-1] o.a.c.c.C.[.[.[/] [DirectJDKLog.java:173] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-03 16:42:57,242 INFO [http-nio-8080-exec-1] o.s.w.s.DispatcherServlet [FrameworkServlet.java:525] Initializing Servlet 'dispatcherServlet'
+2024-08-03 16:42:57,243 INFO [http-nio-8080-exec-1] o.s.w.s.DispatcherServlet [FrameworkServlet.java:547] Completed initialization in 1 ms
+2024-08-03 16:42:57,360 INFO [http-nio-8080-exec-1] c.z.h.HikariDataSource [HikariDataSource.java:110] HikariPool-1 - Starting...
+2024-08-03 16:42:57,480 INFO [http-nio-8080-exec-1] c.z.h.HikariDataSource [HikariDataSource.java:123] HikariPool-1 - Start completed.
+2024-08-03 16:44:07,583 INFO [SpringApplicationShutdownHook] c.z.h.HikariDataSource [HikariDataSource.java:350] HikariPool-1 - Shutdown initiated...
+2024-08-03 16:44:07,588 INFO [SpringApplicationShutdownHook] c.z.h.HikariDataSource [HikariDataSource.java:352] HikariPool-1 - Shutdown completed.
+2024-08-03 16:44:13,118 INFO [main] c.g.b.BlogApiApplication [StartupInfoLogger.java:55] Starting BlogApiApplication using Java 1.8.0_422 on karzy with PID 16628 (D:\develop\code\Blog5\Blog-api\target\classes started by refuse in D:\develop\code\Blog5)
+2024-08-03 16:44:13,120 INFO [main] c.g.b.BlogApiApplication [SpringApplication.java:651] The following 1 profile is active: "dev"
+2024-08-03 16:44:13,548 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java:262] Multiple Spring Data modules found, entering strict repository configuration mode
+2024-08-03 16:44:13,549 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java:132] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-08-03 16:44:13,567 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java:201] Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
+2024-08-03 16:44:13,872 INFO [main] o.s.b.w.e.t.TomcatWebServer [TomcatWebServer.java:108] Tomcat initialized with port(s): 8080 (http)
+2024-08-03 16:44:13,873 INFO [main] o.a.c.c.AprLifecycleListener [DirectJDKLog.java:173] Loaded Apache Tomcat Native library [2.0.7] using APR version [1.7.4].
+2024-08-03 16:44:13,873 INFO [main] o.a.c.c.AprLifecycleListener [DirectJDKLog.java:173] APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true], UDS [true].
+2024-08-03 16:44:13,874 INFO [main] o.a.c.c.AprLifecycleListener [DirectJDKLog.java:173] APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2024-08-03 16:44:13,878 INFO [main] o.a.c.c.AprLifecycleListener [DirectJDKLog.java:173] OpenSSL successfully initialized [OpenSSL 3.0.13 30 Jan 2024]
+2024-08-03 16:44:13,883 INFO [main] o.a.c.h.Http11NioProtocol [DirectJDKLog.java:173] Initializing ProtocolHandler ["http-nio-8080"]
+2024-08-03 16:44:13,883 INFO [main] o.a.c.c.StandardService [DirectJDKLog.java:173] Starting service [Tomcat]
+2024-08-03 16:44:13,883 INFO [main] o.a.c.c.StandardEngine [DirectJDKLog.java:173] Starting Servlet engine: [Apache Tomcat/9.0.68]
+2024-08-03 16:44:13,960 INFO [main] o.a.c.c.C.[.[.[/] [DirectJDKLog.java:173] Initializing Spring embedded WebApplicationContext
+2024-08-03 16:44:13,961 INFO [main] o.s.b.w.s.c.ServletWebServerApplicationContext [ServletWebServerApplicationContext.java:290] Root WebApplicationContext: initialization completed in 811 ms
+2024-08-03 16:44:14,833 INFO [main] c.g.b.c.RedisConfiguration [RedisConfiguration.java:16] 开始创建redis模板对象...
+2024-08-03 16:44:15,194 INFO [main] o.s.s.w.DefaultSecurityFilterChain [DefaultSecurityFilterChain.java:55] Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7a1b8a46, org.springframework.security.web.context.SecurityContextPersistenceFilter@3b009e7b, org.springframework.security.web.header.HeaderWriterFilter@7fedb795, org.springframework.web.filter.CorsFilter@2921199d, org.springframework.security.web.authentication.logout.LogoutFilter@331ff3ac, com.group.blogapi.filter.JwtAuthenticationTokenFilter@64a9d48c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@41f4039e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5c134052, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3d40a3b4, org.springframework.security.web.session.SessionManagementFilter@5c53f292, org.springframework.security.web.access.ExceptionTranslationFilter@31973858, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@62b09715]
+2024-08-03 16:44:15,218 INFO [main] o.a.c.h.Http11NioProtocol [DirectJDKLog.java:173] Starting ProtocolHandler ["http-nio-8080"]
+2024-08-03 16:44:15,226 INFO [main] o.s.b.w.e.t.TomcatWebServer [TomcatWebServer.java:220] Tomcat started on port(s): 8080 (http) with context path ''
+2024-08-03 16:44:15,231 INFO [main] c.g.b.BlogApiApplication [StartupInfoLogger.java:61] Started BlogApiApplication in 2.373 seconds (JVM running for 3.137)
+2024-08-03 16:44:21,020 INFO [http-nio-8080-exec-2] o.a.c.c.C.[.[.[/] [DirectJDKLog.java:173] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-03 16:44:21,020 INFO [http-nio-8080-exec-2] o.s.w.s.DispatcherServlet [FrameworkServlet.java:525] Initializing Servlet 'dispatcherServlet'
+2024-08-03 16:44:21,021 INFO [http-nio-8080-exec-2] o.s.w.s.DispatcherServlet [FrameworkServlet.java:547] Completed initialization in 0 ms
+2024-08-03 16:45:27,376 INFO [http-nio-8080-exec-10] c.z.h.HikariDataSource [HikariDataSource.java:110] HikariPool-1 - Starting...
+2024-08-03 16:45:27,452 INFO [http-nio-8080-exec-10] c.z.h.HikariDataSource [HikariDataSource.java:123] HikariPool-1 - Start completed.
+2024-08-03 16:48:35,479 INFO [SpringApplicationShutdownHook] c.z.h.HikariDataSource [HikariDataSource.java:350] HikariPool-1 - Shutdown initiated...
+2024-08-03 16:48:35,486 INFO [SpringApplicationShutdownHook] c.z.h.HikariDataSource [HikariDataSource.java:352] HikariPool-1 - Shutdown completed.

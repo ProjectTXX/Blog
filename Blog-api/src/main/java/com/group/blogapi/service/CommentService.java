@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface CommentService extends IService<Comment> {
 
+    int getTotalNumsOfComments();
 }

@@ -10,8 +10,10 @@ import com.group.blogapi.util.JwtUtil;
 import com.group.blogapi.util.MailUtil;
 import com.group.blogapi.util.Rsg;
 import com.group.blogapi.util.VerificationCodeGenerator;
+import com.sun.xml.internal.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
@@ -55,13 +57,14 @@ public class UserController {
         user.setRole("ROLE_admin");
         userService.registerUser(user);
         return Rsg.Ok("注册成功");
+        //TODO 邮箱与avatar 互换
     }
     @GetMapping("/code")
     public Rsg sendCodeByEmail(@RequestParam String email){
         System.out.println("发送邮箱验证码接口" + email);
         String code = VerificationCodeGenerator.generateFiveDigitCode();
         System.out.println(code);
-        redisTemplate.opsForValue().set("code@" + email,code,5, TimeUnit.MINUTES);
+//        redisTemplate.opsForValue().set("code@" + email,code,5, TimeUnit.MINUTES);
         mailUtil.send(email,code);
         return Rsg.Ok(code);
     }

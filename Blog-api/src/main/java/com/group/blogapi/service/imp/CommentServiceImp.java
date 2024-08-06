@@ -23,5 +23,11 @@ import java.util.List;
 @Service
 public class CommentServiceImp extends ServiceImpl<CommentMapper, Comment> implements CommentService {
 
+    @Autowired
+    private CommentMapper commentMapper;
 
+    @Override
+    public int getTotalNumsOfComments() {
+        return commentMapper.getTotalNumsOfComments();
+    }
 }

@@ -6,6 +6,7 @@ import com.group.blogapi.domain.Blog;
 
 
 public interface BlogService extends IService<Blog> {
+    Blog getByUserId(Long id);
 
-
+    int getNumsOfRecentlyViewers();
 }
