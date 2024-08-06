@@ -25,9 +25,8 @@
       <div class="template-container">
         <div class="left-half scroll-animation">
           <div class="essay">
-            //后序文章不止一个
-            <h2>文章</h2>
-            <p>内容</p>
+            <!-- 后序文章不止一个 -->
+            <EssayPage></EssayPage>
           </div>
         </div>
         <div class="right-half scroll-animation">
@@ -46,7 +45,7 @@
       </div>
     </div>
     <!-- 出现效果 -->
-    <div class="friend-link-box scroll-animation">
+    <!-- <div class="friend-link-box scroll-animation">
       <h2>友情链接</h2>
       <div class="friend-links">
         <a>Friend 1</a>
@@ -54,16 +53,18 @@
         <a>Friend 3</a>
         <a>Friend 4</a>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 import TagPage from "@/components/TagPage.vue";
+import EssayPage from "@/components/EssayPage.vue";
 
 export default {
   components: {
     TagPage,
+    EssayPage,
   },
   data() {
     return {
@@ -95,7 +96,7 @@ export default {
   methods: {
     handleScroll() {
       const boxes = this.$el.querySelectorAll(".scroll-animation");
-      const triggerOffset = window.innerHeight * 1;
+      const triggerOffset = window.innerHeight * 3;
 
       boxes.forEach((box) => {
         const boxTop = box.getBoundingClientRect().top;
@@ -155,7 +156,6 @@ export default {
 
 <style scoped lang="less">
 .home {
-  height: 2000px;
   margin-top: -70px;
   .img {
     position: relative;

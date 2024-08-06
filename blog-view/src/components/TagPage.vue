@@ -1,14 +1,20 @@
 <template>
-  <div class="tag-container">
-    <button
-      class="tag"
-      v-for="tag in tags"
-      :key="tag.id"
-      :style="{ backgroundColor: tag.color }"
-      @click="$router.push(tag.path)"
-    >
-      {{ tag.text }}
-    </button>
+  <div class="all">
+    <div class="img">
+      <i class="iconfont icon-biaoqianyun"> 标签云</i>
+    </div>
+    <hr />
+    <div class="tag-container">
+      <button
+        class="tag"
+        v-for="tag in tags"
+        :key="tag.id"
+        :style="{ backgroundColor: tag.color }"
+        @click="$router.push(tag.path)"
+      >
+        {{ tag.text }}
+      </button>
+    </div>
   </div>
 </template>
 
@@ -53,18 +59,39 @@ export default {
 };
 </script>
 
-<style>
+<style lang="less">
+@import url("@/assets/iconfont/iconfont.css");
+
+.all {
+  padding: 20px;
+}
+
+.img {
+  margin-bottom: 20px;
+
+  .iconfont {
+    font-size: 24px;
+    color: #333;
+  }
+}
+
 .tag-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-}
 
-.tag {
-  padding: 10px 20px;
-  margin: 5px;
-  border-radius: 5px;
-  background-color: #f0f0f0;
-  cursor: pointer;
+  .tag {
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    color: white;
+    transition: background-color 0.3s;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
 }
 </style>

@@ -70,6 +70,9 @@ export default {
 </script>
 
 <style scoped lang="less">
+.router-link-active {
+  background-color: #666;
+}
 .app {
   width: 100%;
   top: 0;

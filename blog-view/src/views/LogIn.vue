@@ -180,7 +180,7 @@ export default {
         return;
       }
       axios
-        .post("http://7ad7a648.r19.cpolar.top/api/v1/user/register", {
+        .post(" http://2f1dd179.r19.cpolar.top/api/v1/user/register", {
           username: this.username,
           password: this.password,
           email: this.email,
@@ -202,7 +202,7 @@ export default {
         });
 
       axios
-        .post("http://7ad7a648.r19.cpolar.top/api/v1/user/login", {
+        .post(" http://2f1dd179.r19.cpolar.top/api/v1/user/login", {
           username: this.username,
           password: this.password,
         })
@@ -230,7 +230,7 @@ export default {
         return;
       }
       axios
-        .post("http://7ad7a648.r19.cpolar.top/api/v1/user/login", {
+        .post(" http://2f1dd179.r19.cpolar.top/api/v1/user/login", {
           username: this.username,
           password: this.password,
         })
