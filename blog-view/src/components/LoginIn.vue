@@ -221,6 +221,7 @@ export default {
       password: "",
       email:"",
       code:"",
+      token:"",
     }
   },
   mounted(){
@@ -336,6 +337,11 @@ export default {
         username: this.username,
         password: this.password,
         //email:this.email
+        Headers:{
+         // 'Content-Type': 'application/json',
+          'Authorization':`Bearer${this.token}`,
+        }
+        
       })
       .then(response =>{
          console.log(response) 
@@ -360,7 +366,11 @@ export default {
         username: this.username,
         password: this.password,
         email: this.email,
-        code:this.code
+        code:this.code,
+        Headers:{
+        //'Content-Type': 'application/json',
+          'Authorization':`Bearer${this.token}`
+        }
       })
       .then(response =>{ 
         console.log(response) 

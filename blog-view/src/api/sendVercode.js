@@ -1,10 +1,10 @@
-import request from '@/plugins/axios'; 
+import axios from '@/plugins/axios'; 
 
 export default function sendVercode(email) {
-  return request({
+  return axios({
     url: '/api/v1/user/code',
     method: 'get',
-    data: {
+    params: {
       email
     }
   

@@ -1,16 +1,13 @@
-import request from '@/plugins/axios'; 
+import axios from '@/plugins/axios'; 
 
 export function register(RegisterForm) {
-  const { username, password, email, code } = RegisterForm;
+ // const { username, password, email, code } = RegisterForm;
   
-  return request({
+  return axios({
     url: '/api/v1/user/register',
     method: 'post',
     data: {
-      username,
-      password,
-      email,
-      code
+      ...RegisterForm
     }
   });
 }

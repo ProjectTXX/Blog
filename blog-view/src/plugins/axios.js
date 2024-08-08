@@ -31,7 +31,7 @@ const request = axios.create({
 //             //保存身份标识到localStorage
 //             window.localStorage.setItem('identification', identification)
 //         }
-//         return config.data
+//         return config.datas
 //     }
 // )
 

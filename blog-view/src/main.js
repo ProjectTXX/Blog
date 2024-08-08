@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Vuex from 'vuex'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -11,7 +12,7 @@ import axios from 'axios'
 Vue.config.productionTip = false
 //App.config.globalProperties.$http = axios;
 //
-
+Vue.use(Vuex);
 //vue使用 element-ui
 Vue.use(elementUI);
 Vue.prototype.$axios = axios;

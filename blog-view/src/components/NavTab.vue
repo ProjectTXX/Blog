@@ -69,7 +69,7 @@ export default {
   background-image: url(../assets/home.jpg);
   background-size: cover;
   background-repeat: no-repeat;
-}
+  }
 .logo{
   display: inline-block;
   cursor: pointer;
