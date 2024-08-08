@@ -4,9 +4,11 @@
   
 </template>
 <script>
-import NavTab from '../components/NavTab.vue'
+import NavTab from '@/components/NavTab.vue'
 
 
+// @ is an alias to /src
+//import HelloWorld from '@/components/HelloWorld.vue'
 export default {
   name: 'HomeView',
   components: {
