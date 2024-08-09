@@ -1,11 +1,11 @@
 import axios from "@/plugins/axios"
 
-export function login(loginForm) {
+export function Add(CommentForm) {
   return axios({
-    url: "api/v1/user/login",
+    url: "api/v1/comment/add",
     method: "POST",
     data: {
-      loginForm
+      CommentForm
     }
   })
 }
