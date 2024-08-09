@@ -1,18 +1,42 @@
 <template>
   <div class="article-container">
+    <!-- 文章内容 -->
     <div
       class="article-content"
-      v-for="article in currentPageData"
-      :key="article.id"
+      v-for="(article, index) in currentPageData"
+      :key="article.articleId"
       :id="'article-' + (index + 1)"
     >
-      <span class="article-label" @click="changePath(article.labelPath)">
-        {{ article.label }}
-      </span>
+      <!-- 标签 -->
+      <div class="article-labels">
+        <span
+          class="article-label"
+          v-for="label in formattedTagArrays[index]"
+          :key="label"
+          @click="changePath(label)"
+        >
+          {{ label.trim() }}
+        </span>
+      </div>
+
+      <!-- 标题 -->
       <h2 class="article-title">
-        {{ article.title }}
+        {{ article.articleTitle }}
       </h2>
-      <div v-html="article.content"></div>
+      <!-- 时间 -->
+      <div class="article-time">
+        {{ article.articleCreatTime }}
+      </div>
+
+      <!-- 图片 -->
+      <div v-if="article.images">
+        <img :src="article.images" alt="Article Image" class="article-image" />
+      </div>
+      <!-- 文章内容 -->
+      <div v-else>
+        <div class="Content">{{ article.articleContent }}</div>
+      </div>
+      <!-- 点击按钮 -->
       <div class="read-more-button" @click="goToArticleDetail(article.id)">
         点击全文阅读
       </div>
@@ -35,37 +59,37 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {
       currentPage: 1,
       totalPages: 1,
-      articles: [
-        { id: 1, title: "文章1", content: "这是文章1的内容", label: "1" },
-        { id: 2, title: "文章2", content: "这是文章2的内容" },
-        { id: 3, title: "文章3", content: "这是文章3的内容" },
-        { id: 4, title: "文章4", content: "这是文章4的内容" },
-        { id: 5, title: "文章5", content: "这是文章5的内容" },
-        { id: 6, title: "文章6", content: "这是文章6的内容" },
-        { id: 7, title: "文章7", content: "这是文章7的内容" },
-        { id: 8, title: "文章8", content: "这是文章8的内容" },
-        { id: 9, title: "文章9", content: "这是文章9的内容" },
-        { id: 10, title: "文章10", content: "这是文章10的内容" },
-        { id: 11, title: "文章11", content: "这是文章11的内容" },
-        { id: 12, title: "文章12", content: "这是文章12的内容" },
-
-        // ...
-      ],
+      index: 0,
+      formattedTagArrays: [],
     };
   },
   created() {
+    this.articles.forEach((article, index) => {
+      // 检查 article.tag 是否存在，并且是字符串类型
+      if (article && article.tag && typeof article.tag === "string") {
+        this.formattedTagArrays[index] = article.tag.split(",");
+      } else this.formattedTagArrays[index] = [];
+    });
     this.totalPages = Math.ceil(this.articles.length / 5);
+    this.$store.dispatch("fetchArticles"); //在这里获取文章
   },
   computed: {
+    ...mapState({
+      articles: (state) => state.articles,
+    }),
     currentPageData() {
       const start = (this.currentPage - 1) * 5;
       const end = start + 5;
       return this.articles.slice(start, end);
+    },
+    articles() {
+      return this.$store.state.articles;
     },
   },
   methods: {
@@ -109,9 +133,26 @@ export default {
 </script>
 
 <style scoped>
+.article-image {
+  width: 90%;
+  height: 312px;
+  /* overflow: hidden; */
+  object-fit: cover;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.article-time {
+  font-size: 12px;
+  color: #666;
+  margin-top: -15px;
+  margin-bottom: 15px;
+}
+
 .read-more-button {
   position: absolute;
   left: 50%;
+  bottom: 5px;
   transform: translateX(-50%);
   display: inline-block; /* 内联块级元素，可以设置宽度和高度 */
   padding: 10px 30px; /* 内边距 */
@@ -137,15 +178,20 @@ export default {
 }
 
 .article-content {
+  text-align: center;
   margin: 10px 0;
   height: 500px;
   border: 1px solid #ddd;
-  padding: 15px;
+  padding-top: 50px;
   border-radius: 4px;
   background-color: #fff;
   box-sizing: border-box;
   width: 95%; /* 或者使用固定的宽度，如 width: 600px; */
   position: relative; /* 为标签的位置设置相对定位 */
+}
+.Content {
+  height: 312px;
+  overflow: hidden;
 }
 
 .article-content h2 {
@@ -153,22 +199,26 @@ export default {
   color: #333; /* 标题颜色 */
 }
 .article-title {
-  text-align: center; /* 标题居中 */
-  font-size: 24px; /* 放大标题 */
-  margin: 0 0 20px; /* 标题下边距 */
+  text-align: center;
+  font-size: 24px;
 }
 
+.article-labels {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  margin-bottom: 10px;
+  display: block;
+}
 .article-label {
-  position: absolute; /* 绝对定位 */
-  top: 10px; /* 距离顶部10px */
-  left: 10px; /* 距离左侧10px */
   cursor: pointer;
-  padding: 5px 10px; /* 内边距 */
-  background-color: #007bff; /* 背景颜色 */
-  color: white; /* 字体颜色 */
-  border-radius: 5px; /* 边框圆角 */
-  font-size: 14px; /* 字体大小 */
-  /* 添加更多样式，如文本对齐、字体粗细等 */
+  padding: 5px 10px;
+  margin: 5px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  font-size: 14px;
   text-align: center;
   font-weight: bold;
 }
